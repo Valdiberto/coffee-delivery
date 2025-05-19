@@ -29,6 +29,9 @@ Check out the live version: https://coffee-delivery-pi-ten.vercel.app/
 ## 📸 Screenshots
 
 Example:
+![home page](public/images/preview1.png)
+![checkou page](public/images/preview2.png)
+![coffe list](public/images/preview3.png)
 
 ## 🛠️ Built With
 
@@ -39,6 +42,7 @@ Example:
 - React Hook Form
 - Zod
 - Phosphor Icons
+- Radix-ui
 
 ## 📦 Getting Started
 
