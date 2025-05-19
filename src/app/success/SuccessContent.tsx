@@ -23,7 +23,7 @@ export function SuccessContent() {
   const pagamento = paymentMethodLabels[rawPayment]
 
   return (
-    <div className="flex justify-between">
+    <div className="flex-row lg:flex lg:justify-between">
       <div>
         <div>
           <h1 className="font-baloo text-yellow-dark text-3xl font-extrabold">
@@ -46,7 +46,7 @@ export function SuccessContent() {
               </div>
               <div className="flex flex-col">
                 <span className="text-base-text">
-                  Entrega em <strong>{`Rua ${rua}, ${numero}`}</strong>{' '}
+                  Entrega em <strong>{`${rua}, ${numero}`}</strong>{' '}
                 </span>
                 <span>{`${bairro} - ${cidade}, ${uf}`}</span>
               </div>

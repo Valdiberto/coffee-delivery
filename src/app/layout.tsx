@@ -4,6 +4,8 @@ import './globals.css'
 import { Header } from '@/components/Header'
 import { CartProvider } from '@/context/CartContext'
 
+import { ToastProvider } from '@/context/ToastProvider'
+
 const roboto = Roboto({
   subsets: ['latin'],
   variable: '--font-roboto',
@@ -29,12 +31,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${roboto.variable} ${baloo.variable}`}>
       <body className={`antialiased`}>
-        <CartProvider>
-          <div className="font-roboto mx-auto min-h-screen w-360 px-40">
-            <Header />
-            <main>{children}</main>
-          </div>
-        </CartProvider>
+        <ToastProvider>
+          <CartProvider>
+            <div className="font-roboto mx-auto min-h-screen px-5 lg:w-360 lg:px-40">
+              <Header />
+              <main>{children}</main>
+            </div>
+          </CartProvider>
+        </ToastProvider>
       </body>
     </html>
   )

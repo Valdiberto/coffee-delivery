@@ -15,8 +15,11 @@ import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addressSchema, AddressFormData } from '@/schemas/addressSchema'
+import { useToast } from '@/context/ToastProvider'
+import { formatCurrency } from '@/utils/formatCurrency'
 
 export default function Checkout() {
+  const { addToast } = useToast()
   const router = useRouter()
   const {
     handleSubmit,
@@ -37,24 +40,13 @@ export default function Checkout() {
     0,
   )
 
-  const formattedPrice = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format(totalItemsPrice)
-
   const shippingPrice = 3.5
-
-  const formattedShippingPrice = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format(shippingPrice)
 
   const totalPrice = totalItemsPrice + shippingPrice
 
-  const formattedTotalPrice = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format(totalPrice)
+  const formattedPrice = formatCurrency(totalItemsPrice)
+  const formattedShippingPrice = formatCurrency(shippingPrice)
+  const formattedTotalPrice = formatCurrency(totalPrice)
 
   function handleRemoveItem(
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -63,7 +55,6 @@ export default function Checkout() {
     const itemId = parseInt(event.currentTarget.value)
 
     removeFromCart(itemId)
-    console.log(itemId)
   }
 
   function handleCreatePayment(data: AddressFormData) {
@@ -82,7 +73,12 @@ export default function Checkout() {
     console.log('Endereço:', data)
     console.log('Forma de pagamento:', paymentMethod)
 
-    alert('Pedido confirmado com sucesso')
+    addToast({
+      title: 'Pagamento concluído',
+      description: `Compra de ${cart.length} café(s) com sucesso.`,
+      variant: 'success',
+    })
+
     clearCart()
 
     router.push(
@@ -95,14 +91,14 @@ export default function Checkout() {
       <form
         onSubmit={handleSubmit(handleCreatePayment)}
         method="post"
-        className="flex justify-between"
+        className="flex flex-col gap-8 lg:flex-row lg:items-start"
       >
-        <div className="flex flex-col gap-3">
+        <div className="flex w-full flex-col gap-3 lg:max-w-[calc(100%-448px)]">
           <h1 className="text-base-subtitle font-baloo mb-3.5 text-lg font-bold">
             Complete seu pedido
           </h1>
 
-          <div className="bg-base-card rounded-md p-10">
+          <div className="bg-base-card rounded-md p-5 lg:p-10">
             <div className="mb-8 flex items-start gap-2">
               <MapPinLineIcon size={22} className="text-yellow-dark" />
               <div>
@@ -113,52 +109,67 @@ export default function Checkout() {
               </div>
             </div>
 
-            <div className="grid max-w-[560px] grid-cols-3 space-y-4 space-x-3">
-              <TextInput
-                placeholder="CEP"
-                className="col-span-1"
-                {...register('cep')}
-              />
-              {errors.cep && (
-                <span className="text-xs text-red-500">
-                  {errors.cep.message}
-                </span>
-              )}
-              <TextInput
-                placeholder="Rua"
-                className="col-span-3"
-                {...register('rua')}
-              />
-              <TextInput
-                placeholder="Número"
-                className="col-span-1"
-                {...register('numero')}
-              />
-              <TextInput
-                placeholder="Complemento"
-                optional
-                className="col-span-2"
-                {...register('complemento')}
-              />
-              <TextInput
-                placeholder="Bairro"
-                className="col-span-1"
-                {...register('bairro')}
-              />
-              <TextInput
-                placeholder="Cidade"
-                className="col-span-1"
-                {...register('cidade')}
-              />
-              <TextInput
-                placeholder="UF"
-                className="col-span-1 mr-3 mb-4"
-                {...register('uf')}
-              />
+            <div className="grid gap-x-3 gap-y-4 lg:max-w-[560px] lg:grid-cols-[1fr_1fr_auto]">
+              <div className="col-span-2 lg:col-span-1">
+                <TextInput placeholder="CEP" {...register('cep')} />
+                {errors.cep && (
+                  <span className="text-xs text-red-500">
+                    {errors.cep.message}
+                  </span>
+                )}
+              </div>
+              <div className="col-span-3">
+                <TextInput placeholder="Rua" {...register('rua')} />
+                {errors.rua && (
+                  <span className="text-xs text-red-500">
+                    {errors.rua.message}
+                  </span>
+                )}
+              </div>
+              <div className="col-span-2 lg:col-span-1">
+                <TextInput placeholder="Número" {...register('numero')} />
+                {errors.numero && (
+                  <span className="text-xs text-red-500">
+                    {errors.numero.message}
+                  </span>
+                )}
+              </div>
+
+              <div className="col-span-3 lg:col-span-2">
+                <TextInput
+                  placeholder="Complemento"
+                  optional
+                  {...register('complemento')}
+                />
+              </div>
+              <div className="col-span-3 lg:col-span-1">
+                <TextInput placeholder="Bairro" {...register('bairro')} />
+                {errors.bairro && (
+                  <span className="text-xs text-red-500">
+                    {errors.bairro.message}
+                  </span>
+                )}
+              </div>
+              <div className="col-span-2 lg:col-span-1">
+                <TextInput placeholder="Cidade" {...register('cidade')} />
+                {errors.cidade && (
+                  <span className="text-xs text-red-500">
+                    {errors.cidade.message}
+                  </span>
+                )}
+              </div>
+              <div className="w-20">
+                <TextInput placeholder="UF" {...register('uf')} />
+                {errors.uf && (
+                  <span className="text-xs text-red-500">
+                    {errors.uf.message}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
 
-          <div className="bg-base-card rounded-md p-10">
+          <div className="bg-base-card rounded-md p-5 lg:p-10">
             <div className="mb-8 flex items-start gap-2">
               <CurrencyDollarIcon size={22} className="text-purple-base" />
               <div>
@@ -170,7 +181,7 @@ export default function Checkout() {
               </div>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex flex-col gap-3 lg:grid lg:grid-cols-3">
               <PaymentOptions
                 onSelect={setPaymentMethod}
                 selected={paymentMethod}
@@ -178,12 +189,12 @@ export default function Checkout() {
             </div>
           </div>
         </div>
-        <div className="flex w-max flex-col gap-3">
+        <div className="flex flex-col gap-3 lg:w-112">
           <h1 className="text-base-subtitle font-baloo mb-3.5 text-lg font-bold">
             Café selecionados
           </h1>
           <div
-            className="bg-base-card flex flex-col rounded p-10 pt-6"
+            className="bg-base-card flex flex-col rounded p-3 pt-1 lg:p-10 lg:pt-6"
             style={{
               borderTopLeftRadius: '6px',
               borderBottomLeftRadius: '44px',
@@ -197,7 +208,7 @@ export default function Checkout() {
               <>
                 {cart.map((item) => (
                   <div key={item.id} className="border-base-button border-b">
-                    <div className="mt-4 mb-4 flex gap-5 px-1 py-2">
+                    <div className="mt-4 mb-4 flex gap-3 px-1 py-2 lg:gap-5">
                       <Image
                         alt={item.name}
                         src={item.img}
@@ -223,13 +234,13 @@ export default function Checkout() {
                           >
                             <TrashIcon
                               size={16}
-                              className="text-purple-base group-hover:text-purple-dark"
+                              className="text-purple-base group-hover:text-purple-dark transition-colors duration-300"
                             />
                             Remover
                           </button>
                         </div>
                       </div>
-                      <div className="ml-7.5 flex">
+                      <div className="flex lg:ml-7.5">
                         <span className="text-base-text text-end font-bold">
                           R$ {(item.price * item.quantity).toFixed(2)}
                         </span>
@@ -253,7 +264,7 @@ export default function Checkout() {
                 </div>
                 <button
                   type="submit"
-                  className="bg-yellow-base text-base-white hover:bg-yellow-dark mt-6 cursor-pointer rounded-md px-2 py-3 text-sm font-bold uppercase"
+                  className="bg-yellow-base text-base-white hover:bg-yellow-dark mt-6 cursor-pointer rounded-md px-2 py-3 text-sm font-bold uppercase transition-colors duration-300"
                 >
                   confirmar pedido
                 </button>

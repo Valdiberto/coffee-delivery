@@ -38,7 +38,7 @@ export function PaymentOptions({ selected, onSelect }: PaymentOptionsProps) {
           key={type}
           onClick={() => onSelect(type)}
           type="button"
-          className={`${selected === type ? 'bg-purple-light border-purple-dark border' : 'bg-base-button'} hover:text-base-subtitle hover:bg-base-hover text-base-text flex w-full cursor-pointer items-center gap-3 rounded-md p-4 text-xs uppercase`}
+          className={`${selected === type ? 'bg-purple-light border-purple-dark border' : 'bg-base-button'} hover:text-base-subtitle hover:bg-base-hover text-base-text flex w-full cursor-pointer items-center gap-3 rounded-md p-4 text-xs uppercase transition-colors duration-300`}
         >
           {icon}
           {label}

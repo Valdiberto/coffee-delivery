@@ -31,7 +31,7 @@ export function CoffeeList() {
         Nossos cafés
       </h1>
 
-      <div className="mt-14 grid grid-cols-4 gap-x-8 gap-y-10">
+      <div className="mt-14 flex flex-col gap-x-8 gap-y-10 lg:grid lg:grid-cols-4">
         {coffees.map((item) => (
           <div
             key={item.id}
@@ -48,13 +48,13 @@ export function CoffeeList() {
               src={item.img}
               width={120}
               height={120}
-              className="relative top-[-10px]"
+              className="relative top-[-20px]"
             />
-            <div className="bg-yellow-light flex gap-1 rounded-full px-2 py-1">
+            <div className="flex gap-1">
               {item.tag.map((tag, index) => (
                 <span
                   key={index}
-                  className="text-yellow-dark text-[10px] leading-[130%] font-bold"
+                  className="bg-yellow-light text-yellow-dark flex rounded-full px-2 py-1 text-[10px] leading-[130%] font-bold"
                 >
                   {tag.toUpperCase()}
                 </span>
@@ -63,7 +63,7 @@ export function CoffeeList() {
             <h1 className="font-baloo text-base-subtitle leading[130%] mt-4 text-center text-xl font-bold">
               {item.name}
             </h1>
-            <span className="text-base-label text-center text-sm leading-[130%]">
+            <span className="text-base-label text-center text-sm">
               {item.description}
             </span>
 
@@ -92,7 +92,7 @@ export function CoffeeList() {
                     quantity: quantities[item.id],
                   })
                 }
-                className="bg-purple-dark hover:bg-purple-base cursor-pointer rounded-md p-2"
+                className="bg-purple-dark hover:bg-purple-base cursor-pointer rounded-md p-2 transition-colors duration-300"
               >
                 <ShoppingCartIcon
                   size={22}

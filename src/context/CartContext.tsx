@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, ReactNode, useEffect, useState } from 'react'
+import { useToast } from './ToastProvider'
 
 export interface CartItem {
   id: number
@@ -23,6 +24,8 @@ interface CartContextProviderProps {
   children: ReactNode
 }
 export function CartProvider({ children }: CartContextProviderProps) {
+  const { addToast } = useToast()
+
   const [cart, setCart] = useState<CartItem[]>([])
 
   useEffect(() => {
@@ -46,6 +49,11 @@ export function CartProvider({ children }: CartContextProviderProps) {
       } else {
         return [...prevCart, newItem]
       }
+    })
+    addToast({
+      title: 'Item adicionado!',
+      description: `O  ${newItem.name} foi adicionado ao carrinho.`,
+      variant: 'info',
     })
   }
 

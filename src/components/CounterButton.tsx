@@ -37,14 +37,14 @@ export function CounterButtons({
         onClick={handleMinus}
         weight="bold"
         size={14}
-        className="text-purple-base hover:text-purple-dark cursor-pointer"
+        className="text-purple-base hover:text-purple-dark cursor-pointer transition-colors duration-300"
       />
       <span className="text-base-title text-center">{amount}</span>
       <PlusIcon
         onClick={handlePlus}
         weight="bold"
         size={14}
-        className="text-purple-base hover:text-purple-dark cursor-pointer"
+        className="text-purple-base hover:text-purple-dark cursor-pointer transition-colors duration-300"
       />
     </div>
   )

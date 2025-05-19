@@ -6,17 +6,22 @@ import { useContext } from 'react'
 import { CartContext } from '@/context/CartContext'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { useToast } from '@/context/ToastProvider'
 
 export function Header() {
+  const { addToast } = useToast()
   const { cart } = useContext(CartContext)
   const router = useRouter()
 
   function handleCheckoutButton() {
     if (cart.length > 0) {
-      console.log('Itens no carrinho:', cart)
       router.push('/checkout')
     } else {
-      alert('Your cart is empty.')
+      addToast({
+        title: 'Oopsie',
+        description: 'Seu carrinho está vazio.',
+        variant: 'error',
+      })
     }
   }
 
