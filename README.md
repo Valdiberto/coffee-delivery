@@ -28,7 +28,6 @@ Check out the live version: https://coffee-delivery-pi-ten.vercel.app/
 
 ## 📸 Screenshots
 
-Example:
 ![home page](public/images/preview1.png)
 
 ![checkout page](public/images/preview2.png)
