@@ -30,7 +30,7 @@ Check out the live version: https://coffee-delivery-pi-ten.vercel.app/
 
 Example:
 ![home page](public/images/preview1.png)
-![checkou page](public/images/preview2.png)
+![checkout page](public/images/preview2.png)
 ![coffe list](public/images/preview3.png)
 
 ## 🛠️ Built With
