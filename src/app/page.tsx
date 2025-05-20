@@ -76,7 +76,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="mt-6 w-[340px]">
+        <div className="mt-6 w-[300px] lg:w-auto">
           <Image
             src="/images/IntroCoffe.png"
             alt="Intro Coffe"
