@@ -4,7 +4,7 @@ A modern and responsive coffee shop checkout app built with React, TypeScript, T
 
 ## 🚀 Live Demo
 
-Check out the live version: https://coffee-delivery-pi-ten.vercel.app/
+[Check out the live version](https://coffee-delivery-pi-ten.vercel.app/)
 
 ## ✨ Features
 
